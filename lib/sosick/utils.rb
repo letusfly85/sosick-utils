@@ -6,18 +6,18 @@ require "sosick/utils/validator"
 
 module Sosick
   module Utils
-    # Your code goes here...
     
+    # get connection to database
     def self.initialize(mode)
       $sosick_utils_home=ENV['SOSICK_UTILS_HOME']
       $mode   = mode
       Validator::validate_arguments(mode)
-      puts $mode
       $config = self.load_configuration
 
       self.connect_to_sosick
     end
 
+    # get configuration
     def self.load_configuration
       yaml_path = "#{$sosick_utils_home}/config/database.yml"
       yaml = YAML::load(File::open(yaml_path, 'r')::read)
@@ -25,6 +25,7 @@ module Sosick
       return yaml
     end
 
+    # connect to a database
     def self.connect_to_sosick
       ActiveRecord::Base.establish_connection(
         :adapter  => 'mysql2',
@@ -36,10 +37,21 @@ module Sosick
     end
 
     def self.update
-      @photos = Photo.all
+      # search updated records
+      @favorites = Favorite.where(:is_updated => "1")
 
-      @photos.each do |photo|
-        puts photo.photo_title
+      # by each record, update photo score
+      @favorites.each do |favorite|
+        @favorite = Favorite.where(:id => favorite)
+
+        @photo = Photo.where(:id => favorite.photo_id)
+        @photo.favorite_number += favorite.favor_diff_number
+
+        @favorite.favorite_diff_number = 0
+        @favorite.is_updated = "0"
+
+        @favorite.save
+        @photo.save
       end
     end
 
