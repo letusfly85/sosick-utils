@@ -2,13 +2,17 @@ require "sosick/utils/version"
 require "yaml"
 require "sosick/utils/photo"
 require "sosick/utils/favorite"
+require "sosick/utils/validator"
 
 module Sosick
   module Utils
     # Your code goes here...
     
-    def self.initialize
+    def self.initialize(mode)
       $sosick_utils_home=ENV['SOSICK_UTILS_HOME']
+      $mode   = mode
+      Validator::validate_arguments(mode)
+      puts $mode
       $config = self.load_configuration
 
       self.connect_to_sosick
@@ -24,10 +28,10 @@ module Sosick
     def self.connect_to_sosick
       ActiveRecord::Base.establish_connection(
         :adapter  => 'mysql2',
-        :database => $config["production"]["database"],
-        :host     => "localhost",
-        :username => "hoge",
-        :password => "hoge"
+        :database => $config[$mode]["database"],
+        :host     => $config[$mode]["host"],
+        :username => $config[$mode]["username"],
+        :password => $config[$mode]["username"]
       )
     end
 
