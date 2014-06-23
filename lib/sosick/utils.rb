@@ -42,10 +42,14 @@ module Sosick
 
       # by each record, update photo score
       @favorites.each do |favorite|
-        @favorite = Favorite.where(:id => favorite)
+        puts favorite.id
+        @favorite = Favorite.where(:id => favorite.id).first
 
-        @photo = Photo.where(:id => favorite.photo_id)
-        @photo.favarited_number += favorite.favor_diff_number
+        @photo = Photo.where(:id => favorite.photo_id).first
+        if @photo.favarited_number.nil?
+          @photo.favarited_number = 0
+        end
+        @photo.favarited_number += @favorite.favor_diff_number
 
         @favorite.favor_diff_number = 0
         @favorite.is_updated = "0"
