@@ -45,15 +45,14 @@ module Sosick
         @favorite = Favorite.where(:id => favorite)
 
         @photo = Photo.where(:id => favorite.photo_id)
-        @photo.favorite_number += favorite.favor_diff_number
+        @photo.favarited_number += favorite.favor_diff_number
 
-        @favorite.favorite_diff_number = 0
+        @favorite.favor_diff_number = 0
         @favorite.is_updated = "0"
 
         @favorite.save
         @photo.save
       end
     end
-
   end
 end
