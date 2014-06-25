@@ -22,9 +22,8 @@ Or install it yourself as:
 require 'sosick/utils'
 
 include Sosick::Utils
-initialize($mode)
-
-update_sosick_favorites
+Sosick::Utils::initialize($mode)
+Sosick::Utils::update
 </code></pre>
 
 you should chose mode from "development, production, test"
