@@ -1,5 +1,6 @@
 require "sosick/utils/version"
 require "yaml"
+require "sosick/utils/user"
 require "sosick/utils/photo"
 require "sosick/utils/favorite"
 require "sosick/utils/validator"

@@ -16,6 +16,9 @@ Or install it yourself as:
 
     $ gem install sosick-utils
 
+You also have to set env.
+export SOSICK_UTILS_HOME=#{your application path}
+
 ## Usage
 
 <pre><code>
