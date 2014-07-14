@@ -51,6 +51,13 @@ module Sosick
         end
         @photo.favarited_number += @favorite.favor_diff_number
 
+        @user = User.where(id: @photo.model_id)
+        unless @user.nil?
+          pre_favarited_number_sum = @user.favarited_number_sum
+          @user.update(:favarited_number_sum => pre_favarited_number_sum + @favorite_diff_number)
+          @user.save
+        end
+
         @favorite.favor_diff_number = 0
         @favorite.is_updated = "0"
 
