@@ -1,6 +1,6 @@
 class Validator
   def self.validate_arguments(mode)
-    if ["development", "production", "test"].include?(mode) 
+    if ["development", "production", "production2", "test"].include?(mode) 
       return true
       
     else
