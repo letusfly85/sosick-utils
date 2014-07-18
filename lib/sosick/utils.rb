@@ -47,6 +47,7 @@ module Sosick
         @favorite = Favorite.where(:id => favorite.id).first
 
         @photo = Photo.where(:id => favorite.photo_id).first
+        next if @photo.nil?
         if @photo.favarited_number.nil?
           @photo.favarited_number = 0
         end
