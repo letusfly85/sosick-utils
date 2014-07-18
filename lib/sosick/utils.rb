@@ -33,7 +33,7 @@ module Sosick
         :database => $config[$mode]["database"],
         :host     => $config[$mode]["host"],
         :username => $config[$mode]["username"],
-        :password => $config[$mode]["username"]
+        :password => $config[$mode]["password"]
       )
     end
 
